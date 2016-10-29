@@ -1,3 +1,7 @@
 <h1>
   {{title}}
 </h1>
+<div> {{ authUser?.auth?.email }} </div>
+<div><img src="{{authUser?.auth?.photoURL}}" /></div>
+<button (click)="login()">Login</button>
+<button (click)="logout()">Logout</button>
