@@ -32,3 +32,6 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# ignore firebase.config.ts because of sensitive data
+src/app/config/firebase.config.ts
