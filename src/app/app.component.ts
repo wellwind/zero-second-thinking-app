@@ -11,12 +11,7 @@ export class AppComponent {
   authUser: FirebaseAuthState;
 
   constructor(public angularFire: AngularFire) {
-    console.log(angularFire.auth.getAuth());
     angularFire.auth.subscribe(authUser => {
-      if (authUser === null) {
-        this.login();
-      }
-      console.log(authUser);
       this.authUser = authUser;
     });
   }
