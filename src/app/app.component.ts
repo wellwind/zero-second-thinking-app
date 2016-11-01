@@ -1,4 +1,5 @@
-import { AngularFire, FirebaseAuthState } from 'angularfire2';
+import { FirebaseService } from './shared/firebase.service';
+import { FirebaseAuthState } from 'angularfire2';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,20 +11,20 @@ export class AppComponent implements OnInit {
   title = 'app works!';
   authUser: FirebaseAuthState;
 
-  constructor(public angularFire: AngularFire) {
+  constructor(public firebase: FirebaseService) {
   }
 
   ngOnInit() {
-    this.angularFire.auth.subscribe(authUser => {
+    this.firebase.getAuthResult().subscribe(authUser => {
       this.authUser = authUser;
     });
   }
 
   login() {
-    this.angularFire.auth.login();
+    this.firebase.login();
   }
 
   logout() {
-    this.angularFire.auth.logout();
+    this.firebase.logout();
   }
 }

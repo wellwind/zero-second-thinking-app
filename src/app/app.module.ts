@@ -1,3 +1,4 @@
+import { FirebaseService } from './shared/firebase.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +29,7 @@ const firebaseAuthConfig = {
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
-  providers: [],
+  providers: [FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
