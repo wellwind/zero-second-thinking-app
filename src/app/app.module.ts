@@ -4,8 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing.module';
+
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { FirebaseConfig } from './config/firebase.config';
+import { IndexComponent } from './index/index.component';
 
 export const firebaseConfig = FirebaseConfig;
 const firebaseAuthConfig = {
@@ -15,12 +18,14 @@ const firebaseAuthConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   providers: [],
