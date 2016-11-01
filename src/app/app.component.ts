@@ -1,17 +1,20 @@
 import { AngularFire, FirebaseAuthState } from 'angularfire2';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app works!';
   authUser: FirebaseAuthState;
 
   constructor(public angularFire: AngularFire) {
-    angularFire.auth.subscribe(authUser => {
+  }
+
+  ngOnInit() {
+    this.angularFire.auth.subscribe(authUser => {
       this.authUser = authUser;
     });
   }
