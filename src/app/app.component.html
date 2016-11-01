@@ -12,10 +12,10 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a routerLink="/"><i class="fa fa-fw fa-home"></i> 首頁</a></li>
-        <li><a routerLink="/papers"><i class="fa fa-fw fa-pencil-square"></i> 我的筆記</a></li>
-        <li><a routerLink="/folders"><i class="fa fa-fw fa-folder-open"></i> 資料夾</a></li>
-        <li><a routerLink="/tags"><i class="fa fa-fw fa-tags"></i> 標籤</a></li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/"><i class="fa fa-fw fa-home"></i> 首頁</a></li>
+        <li routerLinkActive="active"><a routerLink="/papers"><i class="fa fa-fw fa-pencil-square"></i> 我的筆記</a></li>
+        <li routerLinkActive="active"><a routerLink="/folders"><i class="fa fa-fw fa-folder-open"></i> 資料夾</a></li>
+        <li routerLinkActive="active"><a routerLink="/tags"><i class="fa fa-fw fa-tags"></i> 標籤</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" *ngIf="authUser !== null && authUser !== undefined">
