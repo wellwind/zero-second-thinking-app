@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { FirebaseService } from './shared/firebase.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,7 @@ export const firebaseConfig = FirebaseConfig;
 const firebaseAuthConfig = {
   provider: AuthProviders.Google,
   method: AuthMethods.Redirect
-}
+};
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ const firebaseAuthConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    SharedModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
