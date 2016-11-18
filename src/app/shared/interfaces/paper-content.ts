@@ -4,3 +4,7 @@ export interface PaperContent {
     category: string;
     tags: string[];
 }
+
+export interface PaperContentLine {
+    data: string;
+}
