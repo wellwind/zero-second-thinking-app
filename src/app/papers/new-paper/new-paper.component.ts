@@ -1,5 +1,5 @@
 import { FirebaseService } from '../../shared/firebase.service';
-import { PaperContent } from './../../shared/interfaces/paper-content';
+import { PaperContent, PaperContentLine } from './../../shared/interfaces/paper-content';
 import { Component, OnInit, Renderer, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { database } from 'firebase';
 import { NotificationsService } from 'angular2-notifications';
@@ -12,6 +12,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class NewPaperComponent implements OnInit {
 
   content: PaperContent;
+  paperLines: PaperContentLine[];
   tagString: string;
 
   notificationOptions = {
@@ -44,16 +45,17 @@ export class NewPaperComponent implements OnInit {
       category: '',
       tags: []
     };
+    this.paperLines = [];
     this.tagString = '';
   }
 
   newLine() {
-    this.content.lines.push('');
+    this.paperLines.push({data: ''});
     this.changeDetectorRef.detectChanges();
   }
 
   save() {
-    this.content.lines = this.content.lines.filter(val => val.trim() !== '');
+    this.content.lines = this.paperLines.filter(val => val.data.trim() !== '').map(line => line.data);
     this.content.tags = (this.tagString.trim() !== '') ? this.tagString.split(',').map(val => val.trim()) : [];
     console.log(this.content);
     (this.firebaseService.createNewPaper(this.content) as database.ThenableReference)
