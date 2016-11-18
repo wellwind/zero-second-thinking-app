@@ -1,3 +1,4 @@
+import { PaperContent } from './interfaces/paper-content';
 import { AngularFire, FirebaseAuthState } from 'angularfire2';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
@@ -7,6 +8,8 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class FirebaseService implements CanActivate {
+
+  authUser: FirebaseAuthState;
 
   constructor(public angularFire: AngularFire, public router: Router) {
   }
@@ -27,7 +30,11 @@ export class FirebaseService implements CanActivate {
   canActivate() {
     return this.angularFire.auth
       .take(1)
-      .map((authState: FirebaseAuthState) => !!authState)
+      .map((authState: FirebaseAuthState) => {
+        this.authUser = authState;
+        console.log(this.authUser);
+        return !!authState;
+      })
       .do(authenticated => {
         if (!authenticated) {
           this.login();
@@ -36,4 +43,8 @@ export class FirebaseService implements CanActivate {
       });
   }
 
+  createNewPaper(content: PaperContent): firebase.database.ThenableReference {
+    let userPapers = this.angularFire.database.list('/user/' + this.authUser.uid + '/papers');
+    return userPapers.push(content);
+  }
 }
