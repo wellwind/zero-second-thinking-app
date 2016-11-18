@@ -55,7 +55,8 @@ export class NewPaperComponent implements OnInit {
   }
 
   save() {
-    this.content.lines = this.paperLines.filter(val => val.data.trim() !== '').map(line => line.data);
+    this.paperLines = this.paperLines.filter(val => val.data.trim() !== '');
+    this.content.lines = this.paperLines.map(line => line.data);
     this.content.tags = (this.tagString.trim() !== '') ? this.tagString.split(',').map(val => val.trim()) : [];
     console.log(this.content);
     (this.firebaseService.createNewPaper(this.content) as database.ThenableReference)
