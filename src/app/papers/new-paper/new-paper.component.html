@@ -24,11 +24,11 @@
     </div>
     <div class="panel-body">
       <!-- line form group -->
-      <div *ngFor="let line of content.lines;let index = index;let last = last" class="form-group">
+      <div *ngFor="let line of paperLines;let index = index;let last = last" class="form-group">
         <div class="col-xs-12">
           <input type="text" name="line{{index}}" class="form-control"
             (keyup.enter)="newLine()"
-            [(ngModel)]="content.lines[index]"
+            [(ngModel)]="paperLines[index].data"
             [appFocus]="last">
         </div>
       </div>
