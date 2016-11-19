@@ -51,10 +51,9 @@ export class FirebaseService implements CanActivate {
     // push paper
     let addPaper = userPapers.push(content);
 
-    return addPaper.then(() => {
-      // add paper key to category
-      return this.addPostToCategory(addPaper.key, content.category);
-    });
+    return addPaper
+      .then(() => this.addPostToCategory(addPaper.key, content.category))
+      .then(() => this.addPostToTags(addPaper.key, content.tags));
   }
 
   addPostToCategory(key: string, category: string): Promise<any> {
@@ -74,5 +73,38 @@ export class FirebaseService implements CanActivate {
 
       return categoryFirebaseObj.update({ name: categoryObject.name, papers: categoryObject.papers });
     });
+  }
+
+  addPostToTags(key: string, tags: string[]) {
+    let promiseArray: Promise<any>[] = [];
+
+    // get all tasks
+    tags
+      .filter(tag => tag.trim() !== '')
+      .forEach(tag => {
+        let tagFirebaseObj = this.angularFire.database.object('/user/' + this.authUser.uid + '/tags/' + tag);
+        let task = tagFirebaseObj.take(1).toPromise().then(tagObj => {
+
+          if (tagObj.name === undefined) {
+            tagObj.name = tag;
+          }
+          if (tagObj.papers !== undefined) {
+            tagObj.papers.push(key);
+          } else {
+            tagObj.papers = [key];
+          }
+
+          return tagFirebaseObj.update({ name: tag, papers: tagObj.papers });
+        });
+        promiseArray.push(task);
+      });
+
+    // combine tasks to one promise
+    let result: Promise<any> = promiseArray[0];
+    for (let i = 1; i < promiseArray.length - 2; ++i) {
+      result = result.then(() => promiseArray[i]);
+    }
+
+    return result;
   }
 }
