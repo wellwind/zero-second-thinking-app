@@ -3,6 +3,7 @@ import { PaperContent, PaperContentLine } from './../../shared/interfaces/paper-
 import { Component, OnInit, Renderer, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Thenable } from 'firebase';
 import { NotificationsService } from 'angular2-notifications';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-paper',
@@ -40,6 +41,7 @@ export class NewPaperComponent implements OnInit {
 
   ngOnInit() {
     this.content = {
+      date: moment().format('YYYY/MM/DD hh:mm:ss'),
       title: '',
       lines: [],
       category: '',
@@ -47,6 +49,10 @@ export class NewPaperComponent implements OnInit {
     };
     this.paperLines = [];
     this.tagString = '';
+
+    setInterval(() => {
+      this.content.date = moment().format('YYYY/MM/DD hh:mm:ss');
+    }, 1000);
   }
 
   newLine() {

@@ -1,4 +1,5 @@
 export interface PaperContent {
+    date: string;
     title: string;
     lines: string[];
     category: string;
