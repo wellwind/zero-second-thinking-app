@@ -1,7 +1,7 @@
 import { FirebaseService } from '../../shared/firebase.service';
 import { PaperContent, PaperContentLine } from './../../shared/interfaces/paper-content';
 import { Component, OnInit, Renderer, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { database } from 'firebase';
+import { Thenable } from 'firebase';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -50,7 +50,7 @@ export class NewPaperComponent implements OnInit {
   }
 
   newLine() {
-    this.paperLines.push({data: ''});
+    this.paperLines.push({ data: '' });
     this.changeDetectorRef.detectChanges();
   }
 
@@ -58,14 +58,13 @@ export class NewPaperComponent implements OnInit {
     this.paperLines = this.paperLines.filter(val => val.data.trim() !== '');
     this.content.lines = this.paperLines.map(line => line.data);
     this.content.tags = (this.tagString.trim() !== '') ? this.tagString.split(',').map(val => val.trim()) : [];
-    console.log(this.content);
-    (this.firebaseService.createNewPaper(this.content) as database.ThenableReference)
-      .then(() => {
-        this.notificationService.success('完成', '筆記已經新增！');
-      })
-      .catch(err => {
-        this.notificationService.error('失敗', err.message);
-        console.log(err);
-      });
+
+    let createNewPaperResult = (this.firebaseService.createNewPaper(this.content) as Thenable<any>);
+    createNewPaperResult.then(() => {
+      this.notificationService.success('完成', '筆記已經新增！');
+    }).catch(err => {
+      this.notificationService.error('失敗', err.message);
+      console.log(err);
+    });
   }
 }
