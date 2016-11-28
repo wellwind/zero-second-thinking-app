@@ -1,6 +1,6 @@
 import { PaperContent } from './interfaces/paper-content';
 import { AngularFire, FirebaseAuthState } from 'angularfire2';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Promise, Thenable } from 'firebase';
 import 'rxjs/add/operator/map';
@@ -8,12 +8,15 @@ import 'rxjs/add/operator/first';
 import 'rxjs/Rx';
 
 @Injectable()
-export class FirebaseService implements CanActivate {
+export class FirebaseService implements CanActivate, OnInit {
 
   authUser: FirebaseAuthState;
 
-  constructor(public angularFire: AngularFire, public router: Router) {
   constructor(public angularFire: AngularFire) {
+  }
+
+  ngOnInit() {
+
   }
 
   getAuthResult() {
@@ -44,6 +47,14 @@ export class FirebaseService implements CanActivate {
       });
   }
 
+  queryCategories() {
+    return this.angularFire.database.list('/user/' + this.authUser.uid + '/categories').take(1).toPromise();
+  }
+
+  createNewCategory(folderName) {
+    return this.angularFire.database.list('/user/' + this.authUser.uid + '/categories').push({name: folderName, papers: []});
+  }
+
   createNewPaper(content: PaperContent): Thenable<any> {
     // query papers
     let userPapers = this.angularFire.database.list('/user/' + this.authUser.uid + '/papers');
@@ -58,20 +69,21 @@ export class FirebaseService implements CanActivate {
 
   addPostToCategory(key: string, category: string): Promise<any> {
     // query category
-    let categoryFirebaseObj = this.angularFire.database.object('/user/' + this.authUser.uid + '/categories/' + category);
+    let categoryFirebaseObj = this.angularFire.database.list('/user/' + this.authUser.uid + '/categories');
 
     return categoryFirebaseObj.take(1).toPromise().then(categoryObject => {
 
-      if (categoryObject.name === undefined) {
-        categoryObject.name = category;
-      }
-      if (categoryObject.papers !== undefined) {
-        categoryObject.papers.push(key);
-      } else {
-        categoryObject.papers = [key];
-      }
+      // if (categoryObject.name === undefined) {
+      //   categoryObject.name = category;
+      // }
+      // if (categoryObject.papers !== undefined) {
+      //   categoryObject.papers.push(key);
+      // } else {
+      //   categoryObject.papers = [key];
+      // }
 
-      return categoryFirebaseObj.update({ name: categoryObject.name, papers: categoryObject.papers });
+      // return categoryFirebaseObj.update({ name: categoryObject.name, papers: categoryObject.papers });
+      console.log(categoryObject);
     });
   }
 

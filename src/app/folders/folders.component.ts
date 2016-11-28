@@ -1,3 +1,4 @@
+import { FirebaseService } from './../shared/firebase.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./folders.component.css']
 })
 export class FoldersComponent implements OnInit {
+  folderName: string;
+  folders: any;
 
-  constructor() { }
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
+    this.reloadFolders();
+  }
+
+  reloadFolders() {
+    this.firebaseService.queryCategories().then(result => {
+      this.folders = result;
+      this.folderName = '';
+    });
+  }
+
+  onFolderCreated() {
+    this.reloadFolders();
   }
 
 }
