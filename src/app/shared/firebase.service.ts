@@ -1,7 +1,7 @@
 import { PaperContent } from './interfaces/paper-content';
 import { AngularFire, FirebaseAuthState } from 'angularfire2';
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { Promise, Thenable } from 'firebase';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/first';
@@ -13,6 +13,7 @@ export class FirebaseService implements CanActivate {
   authUser: FirebaseAuthState;
 
   constructor(public angularFire: AngularFire, public router: Router) {
+  constructor(public angularFire: AngularFire) {
   }
 
   getAuthResult() {
@@ -25,7 +26,6 @@ export class FirebaseService implements CanActivate {
 
   logout() {
     this.angularFire.auth.logout();
-    this.router.navigate(['/']);
   }
 
   canActivate() {

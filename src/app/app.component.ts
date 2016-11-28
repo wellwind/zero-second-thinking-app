@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FirebaseService } from './shared/firebase.service';
 import { FirebaseAuthState } from 'angularfire2';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'app works!';
   authUser: FirebaseAuthState;
 
-  constructor(public firebase: FirebaseService) {
+  constructor(public firebase: FirebaseService, public router: Router) {
   }
 
   ngOnInit() {
@@ -26,5 +27,6 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.firebase.logout();
+    this.router.navigate(['/']);
   }
 }
