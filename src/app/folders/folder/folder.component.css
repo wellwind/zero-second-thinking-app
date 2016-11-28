@@ -1,0 +1,22 @@
+.quick-btn {
+  position: relative;
+  display: inline-block;
+  padding-top: 16px;
+  margin: 10px;
+  color: #444444;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  -webkit-box-shadow: 0 0 0 1px #F8F8F8 inset, 0 0 0 1px #CCCCCC;
+  box-shadow: 0 0 0 1px #F8F8F8 inset, 0 0 0 1px #CCCCCC;
+}
+
+.quick-btn .label {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.folder-link {
+    text-decoration: none;
+}
