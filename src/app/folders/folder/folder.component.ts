@@ -19,8 +19,8 @@ export class FolderComponent implements OnInit {
     return this.folderData.name;
   }
 
-  getFolderPostCount() {
-    return this.folderData.posts === undefined ? 0 : this.folderData.posts.length;
+  getFolderPaperCount() {
+    return this.folderData.papers === undefined ? 0 : this.folderData.papers.length;
   }
 
   loadFolderPapers() {
