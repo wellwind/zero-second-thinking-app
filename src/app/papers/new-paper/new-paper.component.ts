@@ -15,6 +15,7 @@ export class NewPaperComponent implements OnInit {
   content: PaperContent;
   paperLines: PaperContentLine[];
   tagString: string;
+  folders: any;
 
   notificationOptions = {
     timeOut: 5000,
@@ -40,6 +41,7 @@ export class NewPaperComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('new paper');
     this.content = {
       date: moment().format('YYYY/MM/DD hh:mm:ss'),
       title: '',
@@ -49,6 +51,11 @@ export class NewPaperComponent implements OnInit {
     };
     this.paperLines = [];
     this.tagString = '';
+
+    this.firebaseService.queryCategories().then((folders) => {
+      this.folders = folders;
+      console.log(folders);
+    });
 
     setInterval(() => {
       this.content.date = moment().format('YYYY/MM/DD hh:mm:ss');

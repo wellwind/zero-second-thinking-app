@@ -53,7 +53,9 @@
       <div class="form-group">
         <label for="category" class="col-md-2 col-xs-12">資料夾</label>
         <span class="col-md-10 col-xs-12">
-          <input type="text" id="category" name="category" class="form-control" [(ngModel)]="content.category">
+          <select class="form-control" [(ngModel)]="content.category" >
+            <option *ngFor="let folder of folders" [value]="folder.$key">{{folder.name}}</option>
+          </select>
         </span>
       </div>
 

@@ -63,27 +63,24 @@ export class FirebaseService implements CanActivate, OnInit {
     let addPaper = userPapers.push(content);
 
     return addPaper
-      .then(() => this.addPostToCategory(addPaper.key, content.category))
+      .then(() => this.addPostToCategory(content.category))
       .then(() => this.addPostToTags(addPaper.key, content.tags));
   }
 
-  addPostToCategory(key: string, category: string): Promise<any> {
+  addPostToCategory(key: string): Promise<any> {
     // query category
-    let categoryFirebaseObj = this.angularFire.database.list('/user/' + this.authUser.uid + '/categories');
+    let categoryFirebaseObj = this.angularFire.database.object('/user/' + this.authUser.uid + '/categories/' + key);
 
     return categoryFirebaseObj.take(1).toPromise().then(categoryObject => {
 
-      // if (categoryObject.name === undefined) {
-      //   categoryObject.name = category;
-      // }
-      // if (categoryObject.papers !== undefined) {
-      //   categoryObject.papers.push(key);
-      // } else {
-      //   categoryObject.papers = [key];
-      // }
+      if (categoryObject.papers !== undefined) {
+        categoryObject.papers.push(key);
+      } else {
+        categoryObject.papers = [key];
+      }
 
-      // return categoryFirebaseObj.update({ name: categoryObject.name, papers: categoryObject.papers });
-      console.log(categoryObject);
+      return categoryFirebaseObj.update({ name: categoryObject.name, papers: categoryObject.papers });
+
     });
   }
 
