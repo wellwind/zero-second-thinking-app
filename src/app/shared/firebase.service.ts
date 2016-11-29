@@ -52,7 +52,11 @@ export class FirebaseService implements CanActivate, OnInit {
   }
 
   createNewCategory(folderName) {
-    return this.angularFire.database.list('/user/' + this.authUser.uid + '/categories').push({name: folderName, papers: []});
+    return this.angularFire.database.list('/user/' + this.authUser.uid + '/categories').push({ name: folderName, papers: [] });
+  }
+
+  queryCategory(key) {
+    return this.angularFire.database.object('/user/' + this.authUser.uid + '/categories/' + key).take(1).toPromise();
   }
 
   createNewPaper(content: PaperContent): Thenable<any> {
