@@ -15,6 +15,10 @@ export class FolderComponent implements OnInit {
 
   }
 
+  getFolderKey() {
+    return this.folderData.$key;
+  }
+  
   getFolderName() {
     return this.folderData.name;
   }

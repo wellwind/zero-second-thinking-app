@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { PapersComponent } from './papers.component';
 import { PapersRoutingModule } from './papers.routing.module';
 import { NewPaperComponent } from './new-paper/new-paper.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { NewPaperComponent } from './new-paper/new-paper.component';
     PapersRoutingModule,
     SharedModule
   ],
-  declarations: [PapersComponent, NewPaperComponent]
+  declarations: [PapersComponent, NewPaperComponent, ListComponent]
 })
 export class PapersModule { }
