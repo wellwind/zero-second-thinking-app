@@ -1,0 +1,10 @@
+<div>
+  <h3>{{ getQueryTypeName() }} : {{ queryName }} 的筆記清單</h3>
+</div>
+
+<div class="list-group">
+  <a [routerLink]="['/papers/', { key: paper.key }]" class="list-group-item" *ngFor="let paper of queryResult?.papers">
+    <span class="badge">{{ paper.date }}</span> {{ paper.title }}
+  </a>
+</div>
+
