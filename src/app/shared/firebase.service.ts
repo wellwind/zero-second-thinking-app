@@ -47,21 +47,37 @@ export class FirebaseService implements CanActivate, OnInit {
       });
   }
 
+  getUserUrl() {
+    return '/user/' + this.authUser.uid + '/';
+  }
+
+  getCategoriesUrl() {
+    return this.getUserUrl() + 'categories/';
+  }
+
+  getPapersUrl() {
+    return this.getUserUrl() + 'papers/';
+  }
+
+  getTagsUrl() {
+    return this.getUserUrl() + 'tags/';
+  }
+
   queryCategories() {
-    return this.angularFire.database.list('/user/' + this.authUser.uid + '/categories').take(1).toPromise();
+    return this.angularFire.database.list(this.getCategoriesUrl()).take(1).toPromise();
   }
 
   createNewCategory(folderName) {
-    return this.angularFire.database.list('/user/' + this.authUser.uid + '/categories').push({ name: folderName, papers: [] });
+    return this.angularFire.database.list(this.getCategoriesUrl()).push({ name: folderName, papers: [] });
   }
 
   queryCategory(key) {
-    return this.angularFire.database.object('/user/' + this.authUser.uid + '/categories/' + key).take(1).toPromise();
+    return this.angularFire.database.object(this.getCategoriesUrl() + key).take(1).toPromise();
   }
 
   createNewPaper(content: PaperContent): Thenable<any> {
     // query papers
-    let userPapers = this.angularFire.database.list('/user/' + this.authUser.uid + '/papers');
+    let userPapers = this.angularFire.database.list(this.getPapersUrl());
 
     // push paper
     let addPaper = userPapers.push(content);
@@ -73,7 +89,7 @@ export class FirebaseService implements CanActivate, OnInit {
 
   addPostToCategory(key: string, paper: PaperContent): Promise<any> {
     // query category
-    let categoryFirebaseObj = this.angularFire.database.object('/user/' + this.authUser.uid + '/categories/' + paper.category);
+    let categoryFirebaseObj = this.angularFire.database.object(this.getCategoriesUrl() + paper.category);
 
     return categoryFirebaseObj.take(1).toPromise().then(categoryObject => {
       let pushedData = {
@@ -100,7 +116,7 @@ export class FirebaseService implements CanActivate, OnInit {
     tags
       .filter(tag => tag.trim() !== '')
       .forEach(tag => {
-        let tagFirebaseObj = this.angularFire.database.object('/user/' + this.authUser.uid + '/tags/' + tag);
+        let tagFirebaseObj = this.angularFire.database.object(this.getTagsUrl() + tag);
         let task = tagFirebaseObj.take(1).toPromise().then(tagObj => {
 
           if (tagObj.name === undefined) {
