@@ -11,6 +11,8 @@ import { PaperContent } from '../../shared/interfaces/paper-content';
 export class ViewComponent implements OnInit {
 
   paperData: PaperContent;
+  paperFolder: any;
+  paperTags: any;
 
   constructor(private route: ActivatedRoute, private firebaseService: FirebaseService) { }
 
@@ -18,8 +20,10 @@ export class ViewComponent implements OnInit {
     this.route.params.take(1).toPromise().then(param => {
       return this.firebaseService.queryPaper(param['key']);
     }).then(paper => {
-      console.log(paper);
       this.paperData = paper as PaperContent;
+      return this.firebaseService.queryCategory(this.paperData.category);
+    }).then(category => {
+      this.paperFolder = category;
     });
   }
 
