@@ -76,6 +76,10 @@ export class FirebaseService implements CanActivate, OnInit {
     return this.angularFire.database.object(this.getCategoriesUrl() + key).take(1).toPromise();
   }
 
+  queryPaper(key) {
+    return this.angularFire.database.object(this.getPapersUrl() + key).take(1).toPromise();
+  }
+
   createNewPaper(content: PaperContent): Thenable<any> {
     // query papers
     let userPapers = this.angularFire.database.list(this.getPapersUrl());
