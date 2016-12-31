@@ -6,6 +6,7 @@ import { PapersComponent } from './papers.component';
 import { PapersRoutingModule } from './papers.routing.module';
 import { NewPaperComponent } from './new-paper/new-paper.component';
 import { ListComponent } from './list/list.component';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { ListComponent } from './list/list.component';
     PapersRoutingModule,
     SharedModule
   ],
-  declarations: [PapersComponent, NewPaperComponent, ListComponent]
+  declarations: [PapersComponent, NewPaperComponent, ListComponent, ViewComponent]
 })
 export class PapersModule { }

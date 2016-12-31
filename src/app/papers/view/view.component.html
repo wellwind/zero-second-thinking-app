@@ -1,0 +1,56 @@
+<div class="form-horizontal" role="form">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">標題</h3>
+    </div>
+    <div class="panel-body">
+      <h2>{{ paperData?.title }} </h2>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">紀錄</h3>
+    </div>
+    <div class="panel-body">
+      <ul>
+        <li *ngFor="let line of paperData?.lines">
+          {{ line }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">分類</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="category" class="col-md-2 col-xs-12">資料夾</label>
+        <span class="col-md-10 col-xs-12">
+          <a [routerLink]="['/papers/list/',  { q: 'folder', key: paperData?.category, name: paperFolder?.name }]">
+          <i class="fa fa-fw fa-folder"></i>
+          {{ paperFolder?.name }}</a>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="tags" class="col-md-2 col-xs-12">標籤</label>
+        <span class="col-md-10 col-xs-12">
+          <span *ngFor="let tag of paperData?.tags; let last = last">
+            <span>{{ tag }}</span>
+            <span *ngIf="!last">,</span>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-12 col-xs-12">
+      日期： {{ paperData?.date }}
+    </div>
+  </div>
+</div>
