@@ -1,4 +1,5 @@
 import { ListComponent } from './list/list.component';
+import { ViewComponent } from './view/view.component';
 import { NewPaperComponent } from './new-paper/new-paper.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -15,6 +16,10 @@ import { PapersComponent } from './papers.component';
                 {
                     path: 'new',
                     component: NewPaperComponent
+                },
+                {
+                    path: 'view',
+                    component: ViewComponent
                 },
                 {
                     path: 'list',

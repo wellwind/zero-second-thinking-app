@@ -3,7 +3,7 @@
 </div>
 
 <div class="list-group">
-  <a [routerLink]="['/papers/', { key: paper.key }]" class="list-group-item" *ngFor="let paper of queryResult?.papers">
+  <a [routerLink]="['/papers/view', { key: paper.key }]" class="list-group-item" *ngFor="let paper of queryResult?.papers">
     <span class="badge">{{ paper.date }}</span> {{ paper.title }}
   </a>
 </div>
