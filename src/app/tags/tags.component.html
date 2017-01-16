@@ -1,5 +1,1 @@
-<div *ngFor="let tag of tags">
-  <a [routerLink]="['/papers/list', { q: 'tag', name: tag.name}]">
-  {{ tag.name }}({{ tag.papers == undefined ? 0 : tag.papers.length }})
-  </a>
-</div>
+<div class="col-xs-12" appTagCloud [tags]="tagWords" (onTagClick)="tagClick($event)"></div>
