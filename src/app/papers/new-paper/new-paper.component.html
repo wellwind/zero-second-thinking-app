@@ -9,8 +9,7 @@
       <div class="form-group">
         <div class="col-xs-12">
           <input ype="text" name="title" placeholder="請輸入標題" class="form-control input-lg"
-            (keyup.enter)="newLine()"
-            [(ngModel)]="content.title" 
+            [(ngModel)]="content.title"
             [appFocus]="true">
         </div>
       </div>
@@ -27,9 +26,7 @@
       <div *ngFor="let line of paperLines;let index = index;let last = last" class="form-group">
         <div class="col-xs-12">
           <input type="text" name="line{{index}}" class="form-control"
-            (keyup.enter)="newLine()"
-            [(ngModel)]="paperLines[index].data"
-            [appFocus]="last">
+            [(ngModel)]="paperLines[index].data">
         </div>
       </div>
       <!-- end line form group -->
