@@ -30,3 +30,7 @@ body > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
+
+.jqcloud-word {
+  cursor: pointer;
+}
