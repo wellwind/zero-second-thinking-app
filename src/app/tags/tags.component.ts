@@ -1,3 +1,4 @@
+import { FirebaseService } from './../shared/firebase.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TagsComponent implements OnInit {
 
-  constructor() { }
+  tags: any;
+
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit() {
+    this.firebaseService.queryTags().then((tags: any) => {
+      this.tags = tags;
+    });
   }
 
 }
