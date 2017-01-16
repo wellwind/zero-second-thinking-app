@@ -33,5 +33,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# ignore .vscode
+.vscode
+
 # ignore firebase.config.ts because of sensitive data
 src/app/config/firebase.config.ts
