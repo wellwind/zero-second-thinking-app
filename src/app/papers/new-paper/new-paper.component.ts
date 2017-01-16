@@ -49,12 +49,18 @@ export class NewPaperComponent implements OnInit {
       category: '',
       tags: []
     };
+
     this.paperLines = [];
+    for (var i = 0; i < 7; ++i) {
+      this.paperLines.push({
+        data: ''
+      });
+    }
+
     this.tagString = '';
 
     this.firebaseService.queryCategories().then((folders) => {
       this.folders = folders;
-      console.log(folders);
     });
 
     setInterval(() => {
